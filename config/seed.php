@@ -172,8 +172,8 @@ return [
         ['name' => 'Appeasements breakdown', 'type' => 'Shopify', 'slug' => 'appeasements-breakdown'],
         ['name' => 'Never shipped', 'type' => 'Shopify', 'slug' => 'never-shipped'],
         ['name' => 'In-store returns & unlocks', 'type' => 'Shopify', 'slug' => 'in-store-returns-unlocks'],
-        ['name' => 'Reasons for contact', 'type' => 'Gorgias', 'slug' => 'reasons-for-contact',
-        ],
+        ['name' => 'Reasons for contact', 'type' => 'Gorgias', 'slug' => 'reasons-for-contact'],
+        ['name' => 'Appeasements per month', 'type' => 'Shopify', 'slug' => 'appeasements-per-month'],
     ],
     'brands' => [
         [

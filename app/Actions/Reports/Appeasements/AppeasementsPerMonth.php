@@ -26,17 +26,37 @@ class AppeasementsPerMonth
             ->each(function ($item, $brand) use (&$reasons, &$dates) {
                 $currentReasons = $item->pluck('reason')->unique()->sort()->values()->toArray();
                 $reasons[$brand] = $currentReasons;
-                $dates = $item->pluck('month')->unique()->map(function ($month) use (&$dates) {
+                $dates['formatted'] = $item->pluck('month')->unique()->map(function ($month) use (&$dates) {
                     $split = explode('/', $month);
 
                     return Carbon::createFromDate($split[1], $split[0], 1)->format('F Y');
                 })->sort(fn ($a, $b) => strtotime($a) - strtotime($b))->toArray();
+
+                $dates['original'] = $item->pluck('month')->unique()->toArray();
+
             })
             ->map(function ($brand) {
                 return $brand->sortBy('reason')->groupBy('month');
             })
-            ->map(function ($item, $brand) use ($reasons) {
-                return $item->map(function ($month, $key) use ($reasons, $brand) {
+            ->map(function ($item, $brand) use ($reasons, $dates) {
+                $missingMonths = collect($dates['original'])->diff($item->keys()->toArray());
+
+                foreach ($missingMonths as $m) {
+
+                    $monthData = [];
+
+                    foreach ($reasons[$brand] as $r) {
+                        $monthData[] = [
+                            'reason' => $r,
+                            'count' => 0,
+                        ];
+                    }
+
+                    $item->put($m, collect($monthData));
+
+                }
+
+                return $item->map(function ($month, $key) use ($reasons, $brand, &$item) {
                     $missingReasons = collect($reasons[$brand])->diff($month->pluck('reason')->toArray());
 
                     foreach ($missingReasons as $reason) {
@@ -73,7 +93,7 @@ class AppeasementsPerMonth
             })
             ->toArray();
 
-        return ['data' => $rows, 'dates' => $dates];
+        return ['data' => $rows, 'dates' => $dates['formatted']];
 
     }
 }
