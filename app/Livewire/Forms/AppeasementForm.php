@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\AppeasementStatus;
 use App\Enums\TagType;
 use App\Models\Appeasement;
 use App\Models\AppeasementReason;
@@ -49,6 +50,11 @@ class AppeasementForm extends Form
         $appeasement->save();
 
         Flux::modal('edit-appeasement')->close();
-        Flux::toast('Appeasement was successfully edited.', variant: 'success');
+
+        if ($appeasement->status === AppeasementStatus::FAILED) {
+            Flux::toast(heading: 'Appeasement has failed processing.', text: $appeasement->status_message, variant: 'danger');
+        } else {
+            Flux::toast('Appeasement was successfully processed.', variant: 'success');
+        }
     }
 }

@@ -13,7 +13,7 @@ use App\Pipes\Filters\BrandRelationByName;
 use App\Pipes\Filters\ReasonRelationByName;
 use App\Pipes\Filters\AppeasementDateLessThan;
 use App\Pipes\Filters\AppeasementDateGreaterThan;
-use function Livewire\Volt\{computed, state, updated, uses, usesPagination};
+use function Livewire\Volt\{computed, state, updated, uses, usesPagination, placeholder};
 
 usesPagination();
 uses([WithFilters::class]);
@@ -121,7 +121,7 @@ $removeFilter = function ($filter) {
                     </flux:menu.radio.group>
                 </flux:menu.submenu>
                 <flux:menu.submenu heading="Reason" class="max-h-48">
-                    <flux:select wire:model.live="reason" variant="combobox" placeholder="Choose industry...">
+                    <flux:select wire:model.live="reason" variant="combobox" placeholder="Choose reason...">
                     @foreach ($this->reasons as $reason)  
                        <flux:select.option>{{$reason->name}}</flux:select.option>
                     @endforeach

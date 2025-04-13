@@ -5,7 +5,7 @@
     </div>
 
     <div class="grid grid-cols-4 gap-4 shadow-md">
-        <div role="status" class="max-w-sm p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse">
+        <div role="status" class="p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse">
             <div class="h-3 rounded-full dark:bg-zinc-700 w-48 mt-4 mb-6"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
@@ -15,7 +15,7 @@
             <span class="sr-only">Loading...</span>
         </div>
 
-        <div role="status" class="max-w-sm p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse shadow-md">
+        <div role="status" class="p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse shadow-md">
             <div class="h-3 rounded-full dark:bg-zinc-700 w-48 mt-4 shadow-md mb-6"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
@@ -25,7 +25,7 @@
             <span class="sr-only">Loading...</span>
         </div>
 
-        <div role="status" class="max-w-sm p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse shadow-md">
+        <div role="status" class="p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse shadow-md">
             <div class="h-3 rounded-full dark:bg-zinc-700 w-48 mt-4 mb-6"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
@@ -35,7 +35,7 @@
             <span class="sr-only">Loading...</span>
         </div>
 
-        <div role="status" class="max-w-sm p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse shadow-md">
+        <div role="status" class="p-2 border border-zinc-700 rounded-sm shadow-sm animate-pulse shadow-md">
             <div class="h-3 rounded-full dark:bg-zinc-700 w-48 mt-4 mb-6"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>
             <div class="h-2 rounded-full dark:bg-zinc-700 mb-2.5"></div>

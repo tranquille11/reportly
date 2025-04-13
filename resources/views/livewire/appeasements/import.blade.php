@@ -31,13 +31,19 @@ $import = function () {
 
         $history = app(CreateHistory::class)->handle(ImportHistoryType::APPEASEMENTS, $file);
 
-        app(ImportAppeasements::class)->handle($history, $brand, $file);
+        try {
+            app(ImportAppeasements::class)->handle($history, $brand, $file);
+        } catch (Exception $e) {
+            Flux::toast(text: $e->getMessage(), heading: 'Import job', variant: 'danger');
+        } finally {
+            Flux::modal('import-appeasements')->close();
+            $this->resetFilePond('files');
+            return;
+        }
     }
 
-    Flux::modal('import-appeasements')->close();
+    Flux::toast(text: 'Appeasements have been imported', heading: 'Import job', variant: 'success');
 
-    Flux::toast(text: 'Appeasements import job has started. You will be notified when it is complete.', heading: 'Import job', variant: 'success');
-    $this->resetFilePond('files');
 }
 
 ?>
