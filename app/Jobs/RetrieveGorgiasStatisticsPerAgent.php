@@ -30,6 +30,20 @@ class RetrieveGorgiasStatisticsPerAgent implements ShouldQueue
         $start = Carbon::parse($this->start);
         $end = Carbon::parse($this->end);
 
+        $allowedStatistics = config('gorgias.allowed_statistics');
+
+        $missingStats = [];
+
+        foreach ($allowedStatistics as $stat) {
+            if (! $this->agent->statistics()->where('statistic', $stat)->where('start_date', $start->format('Y-m-d'))->where('end_date', $end->format('Y-m-d'))->exists()) {
+                $missingStats[] = $stat;
+            }
+        }
+
+        if (! $missingStats) {
+            return;
+        }
+
         $statistics = $gorgiasService->fetchAgentsOverviewStatistics(
             agent: $this->agent,
             start: $start->toAtomString(),
