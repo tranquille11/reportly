@@ -25,7 +25,7 @@ rules([
     'files.*' => 'mimes:csv',
 ]);
 
-$download = fn ($file) => Storage::download('/reports/' . $file); 
+$download = fn ($file) => Storage::download('app/private/reports/' . $file); 
 
 $data = computed(fn () => $this->report->files()->latest()->limit(20)->get());
 

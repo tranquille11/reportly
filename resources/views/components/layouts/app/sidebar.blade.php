@@ -17,7 +17,7 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 
                     <flux:navlist.item icon="users" :href="route('agents.index')" wire:navigate :current="request()->routeIs('agents*')">{{ __('Agents') }}</flux:navlist.item>
-                    <flux:navlist.item icon="store" :href="route('brands')" wire:navigate>{{ __('Brands') }}</flux:navlist.item>
+                    <flux:navlist.item icon="store" :href="route('brands')" wire:navigate :current="request()->routeIs('brands*')">{{ __('Brands') }}</flux:navlist.item>
                     <flux:navlist.item icon="chart-bar" :href="route('reports.index')" wire:navigate :current="request()->routeIs('reports*')">{{ __('Reporting') }}</flux:navlist.item>
                 </flux:navlist.group>
 
