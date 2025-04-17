@@ -35,10 +35,10 @@ $import = function () {
             app(ImportAppeasements::class)->handle($history, $brand, $file);
         } catch (Exception $e) {
             Flux::toast(text: $e->getMessage(), heading: 'Import job', variant: 'danger');
-        } finally {
-            Flux::modal('import-appeasements')->close();
             $this->resetFilePond('files');
             return;
+        } finally {
+            Flux::modal('import-appeasements')->close();
         }
     }
 
