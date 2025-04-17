@@ -51,7 +51,9 @@ state([
         }
 
         return $keys->combine($values)->all();
-    }
+    },
+
+    'currentHistory' => []
 ]);
 
 state(['selectedAgents' => []])->url();
@@ -119,6 +121,10 @@ $agents = computed(function () {
 $statistics = computed(function () {
     return $this->agents->pluck('statistics.current');
 });
+
+$setCurrentHistory = function ($name) {
+    $this->currentHistory = $this->agents->get($name);
+};
 
 $download = function () {
 
@@ -256,7 +262,7 @@ $download = function () {
                 
                 <flux:table.column wire:click="sort('statistics.current.total_calls')" class=" !py-1 !font-bold">
 
-                    <flux:button size="xs" class="!font-extrabold {{ when($sortBy === 'statistics.current.total_calls', '!bg-zinc-700') }}" variant="ghost" tooltip="Total calls">
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Total calls">
                         <x-slot name="icon">
                             <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
                         </x-slot>
@@ -458,6 +464,8 @@ $download = function () {
                 </flux:table.column>
 
             </flux:table.columns>
+            
+                    
 
 
         <flux:table.rows >
@@ -468,9 +476,10 @@ $download = function () {
                 $name = str($agent['name'])->camel()->toString();
             @endphp
                 <flux:table.row>
-                    <flux:table.cell class="flex items-center gap-1 !py-1.5 !text-xs">
-                        <flux:button size="xs" icon="chevron-down" variant="ghost" x-on:click="$wire.showHistory.{{ $name }} = ! $wire.showHistory.{{ $name }}" inset="top bottom"/>
-                        {{ $agent['name'] }}
+                    <flux:table.cell class="!py-1.5 !text-xs">
+                        <flux:modal.trigger name="history">
+                            <flux:link variant="ghost" class="text-white cursor-pointer" wire:click="setCurrentHistory('{{ $agent['name'] }}')">{{ $agent['name'] }}</flux:link>
+                        </flux:modal.trigger>
                     </flux:table.cell>
 
                     <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $agent['statistics']['current']['total_calls'] }}</flux:table.cell>
@@ -551,6 +560,232 @@ $download = function () {
     </flux:table>
     
     </div>
+
+    <flux:modal name="history" variant="flyout" class="relative w-11/12 !p-0 space-y-6">
+        <flux:heading wire:loading.remove wire:target="setCurrentHistory" size="xl" class="!p-4">{{ $currentHistory['name'] ?? '' }}'s history</flux:heading>
+
+        <flux:table wire:loading.remove wire:target="setCurrentHistory">
+        <flux:table.columns>
+
+            <flux:table.column class=" !py-1 !font-bold">
+                <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Total calls">
+                    <x-slot name="icon">
+                        <flux:icon.calendar class="size-3"/>
+                    </x-slot>
+                    Month
+                </flux:button>
+            </flux:table.column>
+
+            <flux:table.column class=" !py-1 !font-bold">
+                <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Total calls">
+                    <x-slot name="icon">
+                        <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
+                    </x-slot>
+                    TC
+                </flux:button>
+            </flux:table.column>
+                
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Calls without disposition code">
+                        <x-slot name="icon">
+                            <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
+                        </x-slot>
+                        ND
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Calls outbound missed">
+                        <x-slot name="icon">
+                            <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
+                        </x-slot>
+                        OM
+                    </flux:button>
+                </flux:table.column>
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Calls hung up by agent under threshold of 30 seconds">
+                        <x-slot name="icon">
+                            <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
+                        </x-slot>
+                        HU<30
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Calls with high hold time over threshold of 10 minutes">
+                        <x-slot name="icon">
+                            <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
+                        </x-slot>
+                        HT>10
+                    </flux:button>
+                    
+                </flux:table.column>
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Calls with high talk time over threshold of 15 minutes">
+                        <x-slot name="icon">
+                            <flux:icon.phone-arrow-down-left class="size-3 text-purple-400"/>
+                        </x-slot>
+                        TT>15
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Emails closed">
+                        <x-slot name="icon">
+                            <flux:icon.envelope class="size-4 text-blue-400" variant="outline"/>
+                        </x-slot>
+                        EC
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Chats closed">
+                        <x-slot name="icon">
+                            <flux:icon.chat-bubble-left-ellipsis class="size-4 text-blue-400" variant="outline"/>
+                        </x-slot>
+                        CC
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Email rating">
+                        <x-slot name="icon">
+                            <flux:icon.envelope class="size-4 text-blue-400" variant="outline"/>
+                        </x-slot>
+                        EMR
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Chat rating">
+                        <x-slot name="icon">
+                            <flux:icon.chat-bubble-left-ellipsis class="size-4 text-blue-400" variant="outline"/>
+                        </x-slot>
+                        CHR
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class=" !py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Onetouch rate">
+                        <x-slot name="icon">
+                            <flux:icon.envelope class="size-4 text-blue-400" variant="outline"/>
+                        </x-slot>
+                        OT
+                    </flux:button>
+                    
+                </flux:table.column>
+
+                <flux:table.column class="!py-1 !font-bold">
+
+                    <flux:button size="xs" class="!font-extrabold" variant="ghost" tooltip="Number of shifts worked in the period">
+                        <x-slot name="icon">
+                            <flux:icon.calendar class="size-4 text-green-400" variant="outline"/>
+                        </x-slot>
+                        SW
+                    </flux:button>
+                    
+                </flux:table.column>
+
+            </flux:table.columns>
+            
+
+            <flux:table.rows>
+            
+
+            @if(isset($currentHistory['statistics']['current']))
+            <flux:table.row>
+                <flux:table.cell class="!py-1.5 !px-2 !text-xs" variant="strong">
+                    <flux:badge size="sm" color="purple">{{ Carbon::parse($end)->format('F Y') }}</flux:badge>
+                </flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['total_calls'] }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['no_disposition'] }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['outbound_missed'] }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['hung_up_under_threshold'] }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['high_hold_time'] }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['high_talk_time'] }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['closed_emails'] ?? 0 }}</flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['closed_chats'] ?? 0}}</flux:table.cell>
+                
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">
+                    <div class="flex items-center gap-1">
+                        <div>
+                        {{ $currentHistory['statistics']['current']['rating_email'] ?? 0 }}
+                        </div>
+                        <flux:icon.star variant="micro" class="text-yellow-500"/>
+                    </div>
+                </flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">
+                    <div class="flex items-center gap-1">
+                        <div>
+                        {{ $currentHistory['statistics']['current']['rating_chat'] ?? 0 }}
+                        </div>
+                        <flux:icon.star variant="micro" class="text-yellow-500"/>
+                    </div>
+                </flux:table.cell>
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $currentHistory['statistics']['current']['onetouch'] ?? '0'}}%</flux:table.cell>
+
+                <flux:table.cell class="!px-5 !py-1.5 !text-xs"></flux:table.cell>
+            </flux:table.row>
+            @endif
+            @if(isset($currentHistory['statistics']['previous']))
+                    @foreach($currentHistory['statistics']['previous'] as $month => $timeframe)
+                    <flux:table.row>
+                        <flux:table.cell class="!py-1.5 !px-2 !text-xs" variant="strong">
+                            <flux:badge size="sm" color="purple">{{ $month }}</flux:badge>
+                        </flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['total_calls'] }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['no_disposition'] }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['outbound_missed'] }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['hung_up_under_threshold'] }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['high_hold_time'] }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['high_talk_time'] }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['closed_emails'] ?? 0 }}</flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['closed_chats'] ?? 0}}</flux:table.cell>
+                        
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">
+                            <div class="flex items-center gap-1">
+                                <div>
+                                {{ $timeframe['rating_email'] ?? 0 }}
+                                </div>
+                                <flux:icon.star variant="micro" class="text-yellow-500"/>
+                            </div>
+                        </flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">
+                            <div class="flex items-center gap-1">
+                                <div>
+                                {{ $timeframe['rating_chat'] ?? 0 }}
+                                </div>
+                                <flux:icon.star variant="micro" class="text-yellow-500"/>
+                            </div>
+                        </flux:table.cell>
+                        <flux:table.cell class="!px-5 !py-1.5 !text-xs">{{ $timeframe['onetouch'] ?? '0'}}%</flux:table.cell>
+
+                            <flux:table.cell class="!px-5 !py-1.5 !text-xs"></flux:table.cell>
+                        </flux:table.row>
+                    @endforeach
+                @endif
+            </flux:table.rows>
+        </flux:table>
+        <flux:icon.loading wire:loading wire:target="setCurrentHistory" class="size-8 absolute top-1/2 left-1/2 text-amber-400"/>
+
+    </flux:modal>
 
     
 </div>
