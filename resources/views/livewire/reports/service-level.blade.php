@@ -66,9 +66,9 @@ $export = function () {
     </div>     
 
     <div class="flex items-center mt-1 gap-2 mb-6">
-        <flux:badge variant="pill" size="sm" color="amber">Start date: {{$start}}</flux:badge>
-        <flux:badge variant="pill" size="sm" color="amber">End date: {{$end}}</flux:badge>
-        <flux:badge variant="pill" size="sm" color="amber">Threshold: {{ $threshold }} seconds</flux:badge>
+        <flux:badge variant="pill" size="sm" color="purple">Start date: {{$start}}</flux:badge>
+        <flux:badge variant="pill" size="sm" color="purple">End date: {{$end}}</flux:badge>
+        <flux:badge variant="pill" size="sm" color="purple">Threshold: {{ $threshold }} seconds</flux:badge>
     </div>
 
     <div class="grid grid-cols-3 gap-4 py-3">
@@ -79,7 +79,7 @@ $export = function () {
                 </div>
                 <flux:subheading>{{$name}}</flux:subheading>
                 <flux:heading size="xl" class="flex items-center gap-2 !font-extrabold">
-                    <flux:icon.newspaper class="size-4 text-amber-400"/>
+                    <flux:icon.newspaper class="size-4 text-purple-400"/>
                     {{$number}}
                 </flux:heading>
             </flux:card>

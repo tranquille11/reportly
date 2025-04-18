@@ -77,9 +77,9 @@ $export = function () {
 
     <div class="space-y-4">
         <div class="flex items-center mt-1 gap-2">
-            <flux:badge variant="pill" size="sm" color="amber">Start date: {{$start}}</flux:badge>
-            <flux:badge variant="pill" size="sm" color="amber">End date: {{$end}}</flux:badge>
-            <flux:badge variant="pill" size="sm" color="amber">Brand: {{$selectedBrand ?? 'All brands'}}</flux:badge>
+            <flux:badge variant="pill" size="sm" color="purple">Start date: {{$start}}</flux:badge>
+            <flux:badge variant="pill" size="sm" color="purple">End date: {{$end}}</flux:badge>
+            <flux:badge variant="pill" size="sm" color="purple">Brand: {{$selectedBrand ?? 'All brands'}}</flux:badge>
         </div>
 
         @if ($this->data)
@@ -143,11 +143,11 @@ $export = function () {
 
                                 <flux:table.rows>
                                     <flux:table.row class="bg-zinc-700">
-                                        <flux:table.cell class="!px-6 !py-1.5 !text-amber-400 font-extrabold">TOTAL</flux:table.cell>
-                                        <flux:table.cell class="!px-6 !py-1.5 !text-amber-400 font-bold">{{$aggregates['count']}}</flux:table.cell>
-                                        <flux:table.cell class="!px-6 !py-1.5 !text-amber-400 font-bold">${{number_format($aggregates['amount'], 2)}}</flux:table.cell>
-                                        <flux:table.cell class="!px-6 !py-1.5 !text-amber-400 font-bold">100.00%</flux:table.cell>
-                                        <flux:table.cell class="!px-6 !py-1.5 !text-amber-400 font-bold">100.00%</flux:table.cell>
+                                        <flux:table.cell class="!px-6 !py-1.5 !text-purple-400 font-extrabold">TOTAL</flux:table.cell>
+                                        <flux:table.cell class="!px-6 !py-1.5 !text-purple-400 font-bold">{{$aggregates['count']}}</flux:table.cell>
+                                        <flux:table.cell class="!px-6 !py-1.5 !text-purple-400 font-bold">${{number_format($aggregates['amount'], 2)}}</flux:table.cell>
+                                        <flux:table.cell class="!px-6 !py-1.5 !text-purple-400 font-bold">100.00%</flux:table.cell>
+                                        <flux:table.cell class="!px-6 !py-1.5 !text-purple-400 font-bold">100.00%</flux:table.cell>
                                     </flux:table.row>
                                     @foreach ($data as $row)
                                         <flux:table.row>

@@ -73,7 +73,7 @@ $collections = computed(fn () => Collection::with('categories')->search(['name']
                         <flux:table.cell class="!px-2 flex justify-end mt-1">
                             <flux:modal.trigger name="edit-collection">
                                 <flux:button 
-                                    class="!text-amber-400"
+                                    class=""
                                     variant="ghost" 
                                     size="xs" 
                                     inset="top bottom" 

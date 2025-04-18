@@ -65,7 +65,7 @@ $export = function () {
             </div>
             <flux:subheading>Total agents</flux:subheading>
             <flux:heading size="xl" class="flex items-center gap-2 !font-extrabold">
-                <flux:icon.users class="size-4 text-amber-400"/>
+                <flux:icon.users class="size-4 text-purple-400"/>
                 {{$this->data->count()}}
             </flux:heading>
         </flux:card>
@@ -76,7 +76,7 @@ $export = function () {
             </div>
             <flux:subheading>Total calls</flux:subheading>
             <flux:heading size="xl" class="flex items-center gap-2 !font-extrabold">
-                <flux:icon.phone-arrow-down-left class="size-4 text-amber-400"/>
+                <flux:icon.phone-arrow-down-left class="size-4 text-purple-400"/>
                 {{round($this->data->sum('inbound_calls_count'))}}
             </flux:heading>
         </flux:card>
@@ -87,7 +87,7 @@ $export = function () {
             </div>
             <flux:subheading>Total calls without disposition</flux:subheading>
             <flux:heading size="xl" class="flex items-center gap-2 !font-extrabold">
-                <flux:icon.phone-x-mark class="size-4 text-amber-400"/>
+                <flux:icon.phone-x-mark class="size-4 text-purple-400"/>
                 {{round($this->data->sum('calls_without_disposition_count'))}}
             </flux:heading>
         </flux:card>
@@ -98,7 +98,7 @@ $export = function () {
             </div>
             <flux:subheading>Average calls per agent</flux:subheading>
             <flux:heading size="xl" class="flex items-center gap-2 !font-extrabold">
-                <flux:icon.phone-arrow-down-left class="size-4 text-amber-400"/>
+                <flux:icon.phone-arrow-down-left class="size-4 text-purple-400"/>
                 {{round($this->data->average('inbound_calls_count'))}}
             </flux:heading>
         </flux:card>
@@ -144,28 +144,28 @@ $export = function () {
                     <flux:table.cell>{{$agent->calls_without_disposition_count}}</flux:table.cell>
                     <flux:table.cell x-on:mouseenter="$wire.setCurrentAgent({{$agent->id}}, 'callsHungUpUnder30Seconds')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" size="sm" class="cursor-pointer" inset>
+                            <flux:button variant="subtle" size="sm" class="cursor-pointer !text-purple-400" inset>
                                 {{$agent->calls_hung_up_under30_seconds_count}}
                             </flux:button>
                         </flux:modal.trigger>
                     </flux:table.cell>
                     <flux:table.cell x-on:mouseenter="$wire.setCurrentAgent({{$agent->id}}, 'callsOutboundMissed')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer">
+                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-400">
                                 {{$agent->calls_outbound_missed_count}}
                             </flux:button>
                         </flux:modal.trigger>
                     </flux:table.cell>
                     <flux:table.cell x-on:mouseenter="$wire.setCurrentAgent({{$agent->id}}, 'callsWithHighHoldTime')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer">
+                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-400">
                                 {{$agent->calls_with_high_hold_time_count}}
                             </flux:button>
                         </flux:modal.trigger>
                     </flux:table.cell>
                     <flux:table.cell x-on:mousedown="$wire.setCurrentAgent({{$agent->id}}, 'callsWithHighTalkTime')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer">
+                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-400">
                                 {{$agent->calls_with_high_talk_time_count}}
                             </flux:button>
                         </flux:modal.trigger>
@@ -177,20 +177,20 @@ $export = function () {
             </flux:table.rows>
         </flux:table>
 
-        <flux:modal  name="calls" variant="flyout" class="relative p-0 w-11/12 space-y-6">
+        <flux:modal  name="calls" variant="flyout" class="relative !p-0 w-11/12 space-y-6">
 
 
-            <flux:heading wire:loading.remove wire:target="setCurrentAgent" size="xl">{{$currentAgent?->name}}'s {{Str::headline($type)}}</flux:heading>
+            <flux:heading wire:loading.remove wire:target="setCurrentAgent" size="xl" class="!p-4">{{$currentAgent?->name}}'s {{Str::headline($type)}}</flux:heading>
 
             <flux:table wire:loading.remove wire:target="setCurrentAgent">
                 <flux:table.columns>
-                    <flux:table.column class="px-6">Agent</flux:table.column>
-                    <flux:table.column class="px-6">Type</flux:table.column>
-                    <flux:table.column class="px-6">Phone</flux:table.column>
-                    <flux:table.column class="px-6">Brand</flux:table.column>
-                    <flux:table.column class="px-6">Start time</flux:table.column>
-                    <flux:table.column class="px-6">End time</flux:table.column>
-                    <flux:table.column class="px-6">Recording</flux:table.column>
+                    <flux:table.column class="!px-6">Agent</flux:table.column>
+                    <flux:table.column class="!px-6">Type</flux:table.column>
+                    <flux:table.column class="!px-6">Phone</flux:table.column>
+                    <flux:table.column class="!px-6">Brand</flux:table.column>
+                    <flux:table.column class="!px-6">Start time</flux:table.column>
+                    <flux:table.column class="!px-6">End time</flux:table.column>
+                    <flux:table.column class="!px-6">Recording</flux:table.column>
                 </flux:table.columns>
 
                 <flux:table.rows>
@@ -203,14 +203,14 @@ $export = function () {
 
                         @forelse($calls as $call)
                             <flux:table.row>
-                                <flux:table.cell class="px-6" variant="strong">{{$call->agent->name}}</flux:table.cell>
-                                <flux:table.cell class="px-6">{{$call->call_type}}</flux:table.cell>
-                                <flux:table.cell class="px-6">{{$call->phone_number}}</flux:table.cell>
-                                <flux:table.cell class="px-6">{{$call->brand->name}}</flux:table.cell>
-                                <flux:table.cell class="px-6">{{$call->start_time}}</flux:table.cell>
-                                <flux:table.cell class="px-6">{{$call->end_time}}</flux:table.cell>
-                                <flux:table.cell class="px-6">
-                                    <flux:link href="{{ $call->recording }}" class="text-amber-400" variant="ghost" target="_blank">Link</flux:link>
+                                <flux:table.cell class="!px-6" variant="strong">{{$call->agent->name}}</flux:table.cell>
+                                <flux:table.cell class="!px-6">{{$call->call_type}}</flux:table.cell>
+                                <flux:table.cell class="!px-6">{{$call->phone_number}}</flux:table.cell>
+                                <flux:table.cell class="!px-6">{{$call->brand->name}}</flux:table.cell>
+                                <flux:table.cell class="!px-6">{{$call->start_time}}</flux:table.cell>
+                                <flux:table.cell class="!px-6">{{$call->end_time}}</flux:table.cell>
+                                <flux:table.cell class="!px-6">
+                                    <flux:link href="{{ $call->recording }}" class="text-purple-400" variant="ghost" target="_blank">Link</flux:link>
                                 </flux:table.cell>
                             </flux:table.row>
                         @empty
@@ -218,7 +218,7 @@ $export = function () {
                     @endif
                 </flux:table.rows>
             </flux:table>
-            <flux:icon.loading wire:loading wire:target="setCurrentAgent" class="size-8 absolute top-1/2 left-1/2 text-amber-400"/>
+            <flux:icon.loading wire:loading wire:target="setCurrentAgent" class="size-8 absolute top-1/2 left-1/2 text-purple-400"/>
 
         </flux:modal>
 

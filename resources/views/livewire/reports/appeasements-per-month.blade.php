@@ -67,8 +67,8 @@ $export = function () {
 
     <div class="space-y-4">
         <div class="flex items-center mt-1 gap-2">
-            <flux:badge variant="pill" size="sm" color="amber">Start date: {{$start}}</flux:badge>
-            <flux:badge variant="pill" size="sm" color="amber">End date: {{$end}}</flux:badge>
+            <flux:badge variant="pill" size="sm" color="purple">Start date: {{$start}}</flux:badge>
+            <flux:badge variant="pill" size="sm" color="purple">End date: {{$end}}</flux:badge>
         </div>
     @if ($this->data)
             <flux:tab.group wire:key="{{now()}}">

@@ -75,9 +75,9 @@ $agents = computed(fn () => Agent::select(['id', 'name'])->whereIn('role', $this
     </div>       
 
     <div class="flex items-center mt-1 gap-2 mb-6">
-        <flux:badge variant="pill" size="sm" color="amber">Start date: {{$start}}</flux:badge>
-        <flux:badge variant="pill" size="sm" color="amber">End date: {{$end}}</flux:badge>
-        <flux:badge variant="pill" size="sm" color="amber">Roles: {{ \Illuminate\Support\Arr::join($agentRoles, ', ')  }}</flux:badge>
+        <flux:badge variant="pill" size="sm" color="purple">Start date: {{$start}}</flux:badge>
+        <flux:badge variant="pill" size="sm" color="purple">End date: {{$end}}</flux:badge>
+        <flux:badge variant="pill" size="sm" color="purple">Roles: {{ \Illuminate\Support\Arr::join($agentRoles, ', ')  }}</flux:badge>
     </div>
 
     <livewire:reports.agent-data.data :$agentRoles :$start :$end :$selectedAgents lazy :key="str($this->start)->append($this->end)->append(implode('-', $agentRoles))->append(implode('-', $selectedAgents))->toString()"/>

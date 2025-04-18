@@ -43,7 +43,7 @@ $downloadAttachment = fn ($name, $commentId) => Storage::download("comments/{$co
 
         <div class="absolute flex items-center gap-4 right-2 bottom-2">
             @if($files)
-                <flux:link class="text-amber-400 text-xs"> {{ count($files) }} attachment(s)</flux:link>
+                <flux:link class="text-purple-400 text-xs"> {{ count($files) }} attachment(s)</flux:link>
             @endif
             <label>
                 <flux:icon.paper-clip variant="mini" class="hover:cursor-pointer"/>
@@ -84,7 +84,7 @@ $downloadAttachment = fn ($name, $commentId) => Storage::download("comments/{$co
                     @forelse($comment?->attachments as $attachment)
                         <flux:button-or-link
                             wire:click="downloadAttachment('{{$attachment}}', '{{$comment->id}}')"
-                            class="inline-flex items-center gap-1 text-sm hover:underline cursor-pointer text-amber-400">
+                            class="inline-flex items-center gap-1 text-sm hover:underline cursor-pointer text-purple-400">
                             <flux:icon.paper-clip variant="outline" class="size-3.5"/>
 
                             <p>{{$attachment}}</p>
