@@ -58,12 +58,13 @@ $export = function () {
                 </flux:menu.submenu>
                 
                 <flux:menu.submenu heading="Brand">
-                    <flux:select variant="listbox" placeholder="Choose brand..." wire:model.live="selectedBrand">
-                        @foreach(App\Models\Brand::all() as $brand)
-                            <flux:select.option>{{ $brand->name }}</flux:select.option>
-                        @endforeach
-                    </flux:select>
+                    <flux:menu.radio.group wire:model.live="selectedBrand">
+                    @foreach(App\Models\Brand::all() as $brand)
+                        <flux:menu.radio>{{ $brand->name }}</flux:menu.radio>
+                    @endforeach
+                    </flux:menu.radio.group>
                 </flux:menu.submenu>
+
             </flux:menu>
         </flux:dropdown>
 
@@ -180,6 +181,14 @@ $export = function () {
                 @endforeach
 
             </flux:tab.group>
+        @else
+            <div class="flex justify-center mt-20">
+                <div class="space-y-6 w-96 text-center">
+                    <flux:icon.circle-dollar-sign class="mx-auto size-8 text-purple-300"/>
+                    <flux:text>No appeasements found during the period. Start by importing appeasements.</flux:text>
+                    <flux:button class="mx-auto" icon:trailing="arrow-top-right-on-square" href="{{ route('appeasements') }}" wire:navigate> Import Appeasements</flux:button>
+                </div>
+            </div>
         @endif
 
     </div>

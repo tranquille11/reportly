@@ -53,15 +53,8 @@ $export = function () {
                 <flux:menu.submenu heading="End date">
                     <flux:calendar wire:model.live="end"/>
                 </flux:menu.submenu>
-                
-                <flux:menu.submenu heading="Brand">
-                    <flux:select variant="listbox" placeholder="Choose brand..." wire:model.live="selectedBrand">
-                        @foreach(App\Models\Brand::all() as $brand)
-                            <flux:select.option>{{ $brand->name }}</flux:select.option>
-                        @endforeach
-                    </flux:select>
-                </flux:menu.submenu>
-            </flux:menu>
+                                
+                            </flux:menu>
         </flux:dropdown>
 
         <flux:button wire:click="export" variant="ghost" size="sm" icon="cloud-arrow-down">Download</flux:button>
@@ -72,7 +65,6 @@ $export = function () {
         <div class="flex items-center mt-1 gap-2">
             <flux:badge variant="pill" size="sm" color="purple">Start date: {{$start}}</flux:badge>
             <flux:badge variant="pill" size="sm" color="purple">End date: {{$end}}</flux:badge>
-            <flux:badge variant="pill" size="sm" color="purple">Brand: {{$selectedBrand ?? 'All brands'}}</flux:badge>
         </div>
 
         @if($this->data)
@@ -119,6 +111,15 @@ $export = function () {
             </flux:tab.panel>
             @endforeach
         </flux:tab.group>
+        @else
+            <div class="flex justify-center mt-20">
+                <div class="space-y-6 w-96 text-center">
+                    <flux:icon.circle-dollar-sign class="mx-auto size-8 text-purple-300"/>
+                    <flux:text>No appeasements found during the period. Start by importing appeasements.</flux:text>
+                    <flux:button class="mx-auto" icon:trailing="arrow-top-right-on-square" href="{{ route('appeasements') }}" wire:navigate> Import Appeasements</flux:button>
+                </div>
+                
+            </div>
         @endif
     </div>
 </div>

@@ -27,7 +27,7 @@ state(['status' => ''])->url(except: '');
 
 $brands = computed(fn () => Brand::all());
 
-$reasons = computed(fn () => AppeasementReason::all());
+$reasons = computed(fn () => AppeasementReason::orderBy('name')->get());
 
 $appeasements = computed(function () {
 
@@ -151,7 +151,7 @@ $removeFilter = function ($filter) {
         @foreach ($this->filters as $filter => $value)
 
             @if($value)
-            <flux:badge variant="pill" color="amber" size="sm">
+            <flux:badge variant="pill" color="purple" size="sm">
                 {{ ucfirst($filter) }}: {{ $value }}
                 <flux:badge.close wire:click="removeFilter('{{$filter}}')" />
             </flux:badge>

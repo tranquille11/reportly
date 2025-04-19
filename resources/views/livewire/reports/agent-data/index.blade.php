@@ -52,6 +52,14 @@ $agents = computed(fn () => Agent::select(['id', 'name'])->whereIn('role', $this
                 </flux:select>
                 </flux:menu.submenu>
 
+                <flux:menu.submenu heading="Test">
+
+                @foreach($this->agents as $agent)
+                    <flux:menu.checkbox>{{ $agent->name }}</flux:menu.checkbox>
+                @endforeach
+                </flux:menu.submenu>
+
+
                 <flux:menu.submenu heading="Roles">
                 <flux:select variant="listbox" indicator="checkbox" multiple wire:model.live="agentRoles" placeholder="Choose roles..." wire:replace.self>
                 @foreach (App\Enums\AgentRole::cases() as $role)

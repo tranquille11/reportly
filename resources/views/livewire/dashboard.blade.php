@@ -228,7 +228,7 @@ $reasons = computed(function () {
         <flux:card class="overflow-hidden min-w-[12rem] shadow-md">
 
         <div class="flex justify-between items-center">
-            <flux:heading size="lg" class="mb-2">Top 3 appeasement reasons</flux:heading>
+            <flux:heading size="lg" class="mb-2">Top 5 appeasement reasons</flux:heading>
             <flux:text class="text-xs">{{ now()->subMonth()->format('F Y') }}</flux:text>
         </div>
             

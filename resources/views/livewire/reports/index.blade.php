@@ -35,7 +35,7 @@ $reports = computed(fn () => Report::orderBy('name')->get());
                         <flux:link variant="ghost" class="cursor-pointer text-white" href="{{ route('reports.' . $report->slug) }}" wire:navigate> {{ $report->name }}</flux:link>
                     </flux:table.cell>
                     <flux:table.cell variant="strong" class="!px-2">
-                        <flux:badge size="sm" color="amber" inset="top bottom">
+                        <flux:badge size="sm" color="purple" inset="top bottom">
                             @if($report->type == 'Mixed')
                                 Custom
                             @elseif ($report->type == 'Shopify')

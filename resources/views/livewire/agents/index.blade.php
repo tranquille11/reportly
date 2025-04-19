@@ -106,7 +106,7 @@ $export = fn () => (new AgentsExport)->download('agents-export.csv');
         @if($role)
         <div class="flex gap-2 items-center">
             <flux:text>Filters: </flux:text> 
-            <flux:badge color="fuchsia" variant="pill">
+            <flux:badge color="purple" variant="pill" size="sm">
                 Role: {{ ucfirst($role) }}
                 <flux:badge.close wire:click="removeRole" class="cursor-pointer"></flux:badge.close>
             </flux:badge>

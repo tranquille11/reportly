@@ -61,14 +61,15 @@ $export = function () {
                 <flux:menu.submenu heading="End date">
                     <flux:calendar wire:model.live="end"/>
                 </flux:menu.submenu>
-                
+
                 <flux:menu.submenu heading="Brand">
-                    <flux:select variant="listbox" placeholder="Choose brand..." wire:model.live="selectedBrand">
-                        @foreach(App\Models\Brand::all() as $brand)
-                            <flux:select.option>{{ $brand->name }}</flux:select.option>
-                        @endforeach
-                    </flux:select>
+                    <flux:menu.radio.group wire:model.live="selectedBrand">
+                    @foreach(App\Models\Brand::all() as $brand)
+                        <flux:menu.radio>{{ $brand->name }}</flux:menu.radio>
+                    @endforeach
+                    </flux:menu.radio.group>
                 </flux:menu.submenu>
+                
             </flux:menu>
         </flux:dropdown>
         <flux:button wire:click="export" variant="ghost" size="sm" icon="cloud-arrow-down">Download</flux:button>
@@ -157,7 +158,7 @@ $export = function () {
                                                     <flux:icon.exclamation-triangle class="size-4" /> No reason specified
                                                 </flux:table.cell>
                                                 @else
-                                                <flux:table.cell class="!px-6 !py-1.5 font-medium">{{$row['Appeasement reason']}}</flux:table.cell>
+                                                <flux:table.cell class="!px-6 !py-1.5">{{$row['Appeasement reason']}}</flux:table.cell>
                                                 @endif
                                             @elseif (in_array($tab, ["Manufacturer's defect", "PreOrder delay"]))
                                                 @if($row['products'] == '')
@@ -165,7 +166,7 @@ $export = function () {
                                                     <flux:icon.exclamation-triangle class="size-4" /> No product specified
                                                 </flux:table.cell>
                                                 @else
-                                                <flux:table.cell class="!px-6 !py-1.5 font-medium">{{$row['products']}}</flux:table.cell>
+                                                <flux:table.cell class="!px-6 !py-1.5">{{$row['products']}}</flux:table.cell>
                                                 @endif
                                             @else
                                                 @if($row['Store #'] == '')
@@ -173,7 +174,7 @@ $export = function () {
                                                     <flux:icon.exclamation-triangle class="size-4" /> No location specified
                                                 </flux:table.cell>
                                                 @else
-                                                <flux:table.cell class="!px-6 !py-1.5 font-medium">{{$row['Store #']}}</flux:table.cell>
+                                                <flux:table.cell class="!px-6 !py-1.5">{{$row['Store #']}}</flux:table.cell>
                                                 @endif
                                             @endif
 
@@ -189,8 +190,15 @@ $export = function () {
                             </flux:table>
                     </flux:tab.panel>
                 @endforeach
-
             </flux:tab.group>
+        @else
+            <div class="flex justify-center mt-20">
+                <div class="space-y-6 w-96 text-center">
+                    <flux:icon.circle-dollar-sign class="mx-auto size-8 text-purple-300"/>
+                    <flux:text>No appeasements found during the period. Start by importing appeasements.</flux:text>
+                    <flux:button class="mx-auto" icon:trailing="arrow-top-right-on-square" href="{{ route('appeasements') }}" wire:navigate> Import Appeasements</flux:button>
+                </div>
+            </div>
         @endif
 
     </div>

@@ -56,9 +56,11 @@ updating([
                     <flux:table.cell variant="strong" class="!px-2">{{$location->name}}</flux:table.cell>
                     <flux:table.cell class="!px-2">{{ucfirst($location->type)}}</flux:table.cell>
                     <flux:table.cell class="!px-2">
-                        @isset($location->parent->name)
-                            <flux:badge size="sm" color="amber">{{$location->parent->name}}</flux:badge>
-                        @endisset
+                        @if($location->parent?->name)
+                            <flux:badge size="sm" color="purple">{{$location->parent->name}}</flux:badge>
+                        @else
+                            -
+                        @endif
                     </flux:table.cell>
                     <flux:table.cell class="!px-2 flex justify-end mt-1">
                         <flux:modal.trigger name="edit-location">
@@ -77,6 +79,9 @@ updating([
             @endforeach
         </flux:table.rows>
     </flux:table>
+
+    <livewire:locations.create @created="$refresh" />
+    <livewire:locations.edit @saved="$refresh" />
 
     <flux:pagination :paginator="$this->locations" class="border-none"/>
 

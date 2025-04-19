@@ -65,7 +65,7 @@ $export = function () {
                             wire:click="download('{{$row->file}}')" 
                             wire:target="download('{{$row->file}}')"
                             as="a"
-                            class="!bg-inherit !border-none !text-purple-400 hover:!underline"
+                            class="!bg-inherit !border-none !text-purple-300 hover:!underline"
                             inset>
                             Download                            
                         </flux:button>

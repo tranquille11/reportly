@@ -144,28 +144,28 @@ $export = function () {
                     <flux:table.cell>{{$agent->calls_without_disposition_count}}</flux:table.cell>
                     <flux:table.cell x-on:mouseenter="$wire.setCurrentAgent({{$agent->id}}, 'callsHungUpUnder30Seconds')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" size="sm" class="cursor-pointer !text-purple-400" inset>
+                            <flux:button variant="subtle" size="sm" class="cursor-pointer !text-purple-300" inset>
                                 {{$agent->calls_hung_up_under30_seconds_count}}
                             </flux:button>
                         </flux:modal.trigger>
                     </flux:table.cell>
                     <flux:table.cell x-on:mouseenter="$wire.setCurrentAgent({{$agent->id}}, 'callsOutboundMissed')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-400">
+                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-300">
                                 {{$agent->calls_outbound_missed_count}}
                             </flux:button>
                         </flux:modal.trigger>
                     </flux:table.cell>
                     <flux:table.cell x-on:mouseenter="$wire.setCurrentAgent({{$agent->id}}, 'callsWithHighHoldTime')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-400">
+                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-300">
                                 {{$agent->calls_with_high_hold_time_count}}
                             </flux:button>
                         </flux:modal.trigger>
                     </flux:table.cell>
                     <flux:table.cell x-on:mousedown="$wire.setCurrentAgent({{$agent->id}}, 'callsWithHighTalkTime')">
                         <flux:modal.trigger name="calls">
-                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-400">
+                            <flux:button variant="subtle" inset size="sm" class="cursor-pointer !text-purple-300">
                                 {{$agent->calls_with_high_talk_time_count}}
                             </flux:button>
                         </flux:modal.trigger>
